@@ -1,5 +1,7 @@
 # Dependencies
 node_modules
+.idea
+.gradle
 
 # yarn error logs
 yarn-error.log

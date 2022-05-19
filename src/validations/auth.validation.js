@@ -6,6 +6,8 @@ const register = {
     email: Joi.string().required().email(),
     password: Joi.string().required().custom(password),
     name: Joi.string().required(),
+    lastName: Joi.string().required(),
+    userName: Joi.string().required(),
   }),
 };
 
@@ -13,6 +15,12 @@ const login = {
   body: Joi.object().keys({
     email: Joi.string().required(),
     password: Joi.string().required(),
+  }),
+};
+
+const isEmailExists = {
+  body: Joi.object().keys({
+    email: Joi.string().required(),
   }),
 };
 
@@ -57,4 +65,5 @@ module.exports = {
   forgotPassword,
   resetPassword,
   verifyEmail,
+  isEmailExists,
 };
