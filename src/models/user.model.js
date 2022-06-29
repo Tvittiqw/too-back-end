@@ -5,8 +5,7 @@ const { toJSON, paginate } = require('./plugins');
 const { roles } = require('../config/roles');
 
 const userSchema = mongoose.Schema(
-  {
-    name: {
+  { firstName: {
       type: String,
       required: true,
       trim: true,
@@ -18,7 +17,6 @@ const userSchema = mongoose.Schema(
     },
     userName: {
       type: String,
-      required: true,
       unique: true,
       trim: true,
     },
