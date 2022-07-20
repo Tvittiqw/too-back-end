@@ -1,12 +1,30 @@
 const httpStatus = require('http-status');
 const catchAsync = require('../utils/catchAsync');
-const { authService, userService, tokenService, emailService } = require('../services');
+const {
+  authService,
+  userService,
+  tokenService,
+  emailService,
+} = require('../services');
+const { User } = require('../models');
 
 const register = catchAsync(async (req, res) => {
   const user = await userService.createUser(req.body);
   const tokens = await tokenService.generateAuthTokens(user);
   res.status(httpStatus.CREATED).send({ user, tokens });
 });
+
+const google = async (err, user, request) => {
+  try {
+    if (!request) {
+      return;
+    }
+    request.res.redirect(`too://login?/user=${JSON.stringify(user)}`);
+  } catch (e) {
+    console.log(e);
+    throw e;
+  }
+};
 
 const login = catchAsync(async (req, res) => {
   const { email, password } = req.body;
@@ -48,8 +66,11 @@ const verifyEmail = catchAsync(async (req, res) => {
 });
 
 const isEmailExists = catchAsync(async (req, res) => {
-  await userService.isEmailExists(req.query.token);
-  res.status(httpStatus.NO_CONTENT).send();
+  const { email } = req.params;
+  if (await User.isEmailTaken(email)) {
+    return res.status(203).send('email already exists');
+  }
+  res.status(httpStatus.OK).send('email is valid');
 });
 
 module.exports = {
@@ -62,4 +83,5 @@ module.exports = {
   sendVerificationEmail,
   verifyEmail,
   isEmailExists,
+  google,
 };

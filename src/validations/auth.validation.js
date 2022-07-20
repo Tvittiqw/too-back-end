@@ -19,7 +19,7 @@ const login = {
 };
 
 const isEmailExists = {
-  body: Joi.object().keys({
+  params: Joi.object().keys({
     email: Joi.string().required(),
   }),
 };

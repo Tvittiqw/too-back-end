@@ -1,4 +1,5 @@
 const express = require('express');
+const passport = require('passport');
 const validate = require('../../middlewares/validate');
 const authValidation = require('../../validations/auth.validation');
 const authController = require('../../controllers/auth.controller');
@@ -7,7 +8,7 @@ const auth = require('../../middlewares/auth');
 const router = express.Router();
 
 router.post('/register', validate(authValidation.register), authController.register);
-router.post('/is-email-exists', validate(authValidation.isEmailExists), authController.isEmailExists);
+router.get('/is-email-exists/:email', validate(authValidation.isEmailExists), authController.isEmailExists);
 router.post('/login', validate(authValidation.login), authController.login);
 router.post('/logout', validate(authValidation.logout), authController.logout);
 router.post('/refresh-tokens', validate(authValidation.refreshTokens), authController.refreshTokens);
@@ -15,6 +16,15 @@ router.post('/forgot-password', validate(authValidation.forgotPassword), authCon
 router.post('/reset-password', validate(authValidation.resetPassword), authController.resetPassword);
 router.post('/send-verification-email', auth(), authController.sendVerificationEmail);
 router.post('/verify-email', validate(authValidation.verifyEmail), authController.verifyEmail);
+
+// google
+router.get('/google', passport.authenticate('google', {
+  session: false,
+  scope: ['email', 'profile'],
+}));
+
+router.get('/google/redirect',
+  passport.authenticate('google', { session: false }, authController.google));
 
 module.exports = router;
 

@@ -79,12 +79,6 @@ const deleteUserById = async (userId) => {
   return user;
 };
 
-const isEmailExists = async (email) => {
-  if (await User.isEmailTaken(email)) {
-    throw new ApiError(httpStatus.BAD_REQUEST, 'Email already taken');
-  }
-};
-
 module.exports = {
   createUser,
   queryUsers,
@@ -92,5 +86,4 @@ module.exports = {
   getUserByEmail,
   updateUserById,
   deleteUserById,
-  isEmailExists,
 };

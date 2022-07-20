@@ -11,24 +11,21 @@ mongoose.connect(config.mongoose.url, config.mongoose.options).then(() => {
   });
 });
 
-const exitHandler = () => {
-  if (server) {
-    server.close(() => {
-      logger.info('Server closed');
-      process.exit(1);
-    });
-  } else {
-    process.exit(1);
-  }
-};
+// handle errors and rejections
+// prevent server stop if error
+process.on('uncaughtException', (error, origin) => {
+  console.log('----- Uncaught exception -----');
+  console.log(error);
+  console.log('----- Exception origin -----');
+  console.log(origin);
+});
 
-const unexpectedErrorHandler = (error) => {
-  logger.error(error);
-  exitHandler();
-};
-
-process.on('uncaughtException', unexpectedErrorHandler);
-process.on('unhandledRejection', unexpectedErrorHandler);
+process.on('unhandledRejection', (reason, promise) => {
+  console.log('----- Unhandled Rejection at -----');
+  console.log(promise);
+  console.log('----- Reason -----');
+  console.log(reason);
+});
 
 process.on('SIGTERM', () => {
   logger.info('SIGTERM received');
