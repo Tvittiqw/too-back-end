@@ -20,6 +20,7 @@ const envVarsSchema = Joi.object()
   .description('minutes after which verify email token expires'),
   GOOGLE_CLIENT_ID: Joi.string().required().description('google client id'),
   GOOGLE_CLIENT_SECRET: Joi.string().required().description('google client secret'),
+  GOOGLE_REDIRECT: Joi.string().required().description('google redirect url'),
   SMTP_HOST: Joi.string().description('server that will send the emails'),
   SMTP_PORT: Joi.number().description('port to connect to the email server'),
   SMTP_USERNAME: Joi.string().description('username for email server'),
@@ -55,7 +56,8 @@ module.exports = {
   google: {
     clientID: envVars.GOOGLE_CLIENT_ID,
     clientSecret: envVars.GOOGLE_CLIENT_SECRET,
-    callbackURL: 'http://localhost:3000/v1/auth/google/redirect',
+    // callbackURL: 'http://localhost:3000/v1/auth/google/redirect',
+    callbackURL: envVars.GOOGLE_REDIRECT || 'http://localhost:3000/v1/auth/google/redirect',
     passReqToCallback: true,
   },
   email: {
