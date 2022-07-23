@@ -57,7 +57,7 @@ module.exports = {
     clientID: envVars.GOOGLE_CLIENT_ID,
     clientSecret: envVars.GOOGLE_CLIENT_SECRET,
     // callbackURL: 'http://localhost:3000/v1/auth/google/redirect',
-    callbackURL: envVars.GOOGLE_REDIRECT || 'http://localhost:3000/v1/auth/google/redirect',
+    callbackURL: envVars.GOOGLE_REDIRECT,
     passReqToCallback: true,
   },
   email: {
