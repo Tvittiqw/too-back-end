@@ -1,6 +1,7 @@
 const express = require('express');
 const authRoute = require('./auth.route');
 const userRoute = require('./user.route');
+const todoRoute = require('./todo.route');
 const scheduleRoute = require('./schedule.route');
 const docsRoute = require('./docs.route');
 const config = require('../../config/config');
@@ -19,6 +20,10 @@ const defaultRoutes = [
   {
     path: '/schedule',
     route: scheduleRoute,
+  },
+  {
+    path: '/todo',
+    route: todoRoute,
   },
 ];
 

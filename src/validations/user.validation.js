@@ -3,10 +3,10 @@ const { password, objectId } = require('./custom.validation');
 
 const createUser = {
   body: Joi.object().keys({
-    email: Joi.string().required().email(),
+    email: Joi.string().required().email({ tlds: false }),
     password: Joi.string().required().custom(password),
     name: Joi.string().required(),
-    role: Joi.string().required().valid('user', 'admin'),
+    // role: Joi.string().required().valid('user', 'admin'), roles not needed right now
   }),
 };
 
@@ -31,12 +31,12 @@ const updateUser = {
     userId: Joi.required().custom(objectId),
   }),
   body: Joi.object()
-    .keys({
-      email: Joi.string().email(),
-      password: Joi.string().custom(password),
-      name: Joi.string(),
-    })
-    .min(1),
+  .keys({
+    email: Joi.string().email(),
+    password: Joi.string().custom(password),
+    name: Joi.string(),
+  })
+  .min(1),
 };
 
 const deleteUser = {
