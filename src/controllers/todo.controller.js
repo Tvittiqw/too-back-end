@@ -38,12 +38,9 @@ const updateTodo = catchAsync(async (io, todoUpdates) => {
 
 const getTodos = catchAsync(async (req, res) => {
   const { user } = req;
-  try {
+  console.log('user',user)
     const todos = await todoService.getTodos(user.id);
     res.send(todos);
-  } catch (e) {
-    console.log(e);
-  }
 });
 
 const getTodo = catchAsync(async (req, res) => {

@@ -19,7 +19,7 @@ const updateTodo = {
 
 const getTodos = {
 
-}
+};
 
 const getTodo = {
 

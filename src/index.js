@@ -16,25 +16,25 @@ mongoose.connect(config.mongoose.url, config.mongoose.options).then(() => {
   });
 });
 
-// socket.io connection
-io.on('connection', (socket) => {
-  console.log('Connected to Socket!!' + socket.id);
-  // Receiving Todos from client
-  socket.on('addTodo', (todo) => {
-    console.log('socketData: ' + JSON.stringify(todo));
-    todoController.createTodo(io, todo);
-  });
-// Receiving Updated Todo from client
-  socket.on('updateTodo', (todo) => {
-    console.log('socketData: ' + JSON.stringify(todo));
-    todoController.updateTodo(io, todo);
-  });
-// Receiving Todo to Delete
-  socket.on('deleteTodo', (todo) => {
-    console.log('socketData: ' + JSON.stringify(todo));
-    todoController.deleteTodo(io, todo);
-  });
-});
+// // socket.io connection
+// io.on('connection', (socket) => {
+//   console.log('Connected to Socket!!' + socket.id);
+//   // Receiving Todos from client
+//   socket.on('addTodo', (todo) => {
+//     console.log('socketData: ' + JSON.stringify(todo));
+//     todoController.createTodo(io, todo);
+//   });
+// // Receiving Updated Todo from client
+//   socket.on('updateTodo', (todo) => {
+//     console.log('socketData: ' + JSON.stringify(todo));
+//     todoController.updateTodo(io, todo);
+//   });
+// // Receiving Todo to Delete
+//   socket.on('deleteTodo', (todo) => {
+//     console.log('socketData: ' + JSON.stringify(todo));
+//     todoController.deleteTodo(io, todo);
+//   });
+// });
 
 // handle errors and rejections
 // prevent server stop if error
