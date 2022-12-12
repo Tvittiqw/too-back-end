@@ -1,68 +1,30 @@
 const mongoose = require('mongoose');
 const { toJSON, paginate } = require('./plugins');
 
-const timeSchema = mongoose.Schema({
-  from: {
-    type: String,
-  },
-  to: {
-    type: String,
-  },
-});
-
-const eventSchema = mongoose.Schema({
-  name: {
-    type: String,
-    trim: true,
-  },
-  description: {
-    type: String,
-    trim: true,
-  },
-  type: {
-    type: String,
-  },
-  timeRange: { timeSchema },
-  color: {
-    type: String,
-  },
-  breaks: {
-    type: Boolean,
-  },
-  breakDuration: Number,
-  breakPeriodicity: Number,
-});
-
-const daySchema = mongoose.Schema({
-  name: {
-    type: String,
-    trim: true,
-  },
-  events: [eventSchema],
-});
-
 const scheduleSchema = mongoose.Schema(
   {
     name: {
       type: String,
       trim: true,
+      required: true,
     },
     description: {
       type: String,
       trim: true,
     },
-    ownerId: {
+    iconLink: {
       type: String,
+      trim: true,
     },
-    week: {
-      type: Array,
-      value: daySchema,
+    owner: {
+      type: mongoose.SchemaTypes.ObjectId,
+      ref: 'User',
+      required: true,
     },
-    // todo add flag for private schedules
-    // private: {
-    //   type: Boolean,
-    //   default: true,
-    // },
+    scheduleParts: [{
+      type: mongoose.SchemaTypes.ObjectId,
+      ref: 'Activity',
+    }],
   },
   {
     timestamps: true,

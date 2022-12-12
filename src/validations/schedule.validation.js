@@ -10,14 +10,13 @@ const scheduleEvent = Joi.object().keys({
   breakDuration: Joi.number(),
   breakPeriodicity: Joi.number(),
 });
+
 const scheduleDay = Joi.array().items(scheduleEvent);
-const scheduleWeek = Joi.array().items(scheduleDay); // length(6)
 
 const createSchedule = {
   body: Joi.object().keys({
     name: Joi.string(),
     description: Joi.string(),
-    week: scheduleWeek,
   }),
 };
 
@@ -33,11 +32,18 @@ const getSchedule = {
 };
 
 const updateSchedule = {
-  body: Joi.object().keys({}),
+  params: Joi.object().keys({
+    scheduleId: Joi.string(),
+  }),
+  body: Joi.object().keys({
+    name: Joi.string(),
+  }),
 };
 
 const deleteSchedule = {
-  body: Joi.object().keys({}),
+  params: Joi.object().keys({
+    scheduleId: Joi.string(),
+  }),
 };
 
 module.exports = {

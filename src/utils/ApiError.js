@@ -3,6 +3,8 @@ class ApiError extends Error {
     super(message);
     this.statusCode = statusCode;
     this.isOperational = isOperational;
+    //todo check if its valid
+    this.message = message;
     if (stack) {
       this.stack = stack;
     } else {

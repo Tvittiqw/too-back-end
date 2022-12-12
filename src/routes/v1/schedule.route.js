@@ -11,11 +11,10 @@ router
 .post(auth(), validate(scheduleValidation.createSchedule), scheduleController.createSchedule)
 .get(auth(), validate(scheduleValidation.getSchedules), scheduleController.getSchedules);
 
-// todo
-// router
-// .route('/:scheduleId')
-// .get(auth(), validate(scheduleValidation.getSchedule), scheduleController.getSchedule)
-// .patch(auth(), validate(scheduleValidation.updateSchedule), scheduleController.updateSchedule)
-// .delete(auth(), validate(scheduleValidation.deleteSchedule), scheduleController.deleteSchedule);
+router
+.route('/:scheduleId')
+.get(auth(), validate(scheduleValidation.getSchedule), scheduleController.getSchedule)
+.patch(auth(), validate(scheduleValidation.updateSchedule), scheduleController.updateSchedule)
+.delete(auth(), validate(scheduleValidation.deleteSchedule), scheduleController.deleteSchedule);
 
 module.exports = router;
