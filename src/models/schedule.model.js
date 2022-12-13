@@ -12,6 +12,10 @@ const scheduleSchema = mongoose.Schema(
       type: String,
       trim: true,
     },
+    isPrivate: {
+      type: Boolean,
+      required: true,
+    },
     iconLink: {
       type: String,
       trim: true,
@@ -34,6 +38,7 @@ const scheduleSchema = mongoose.Schema(
 // add plugin that converts mongoose to json
 scheduleSchema.plugin(toJSON);
 scheduleSchema.plugin(paginate);
+scheduleSchema.index({ name: 'text' });
 
 const Schedule = mongoose.model('Schedule', scheduleSchema);
 

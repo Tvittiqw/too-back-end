@@ -18,6 +18,21 @@ const getSchedules = catchAsync(async (req, res) => {
   try {
     const filter = pick(req.query, ['filer']); //todo add filters
     const options = pick(req.query, ['sortBy', 'limit', 'page']);
+    filter.isPrivate = false; //find only not private schdeules
+    const schedules = await scheduleService.getSchedules(filter, options);
+    res.status(httpStatus.OK).send(schedules);
+  } catch (e) {
+    console.log(e);
+    res.status(httpStatus.INTERNAL_SERVER_ERROR).send(e);
+  }
+});
+
+const getUsersSchedules = catchAsync(async (req, res) => {
+  try {
+    const { user } = req;
+    const filter = pick(req.query, ['filer']);
+    const options = pick(req.query, ['sortBy', 'limit', 'page']);
+    filter.owner = user._id;
     const schedules = await scheduleService.getSchedules(filter, options);
     res.status(httpStatus.OK).send(schedules);
   } catch (e) {
@@ -58,4 +73,5 @@ module.exports = {
   getSchedule,
   updateSchedule,
   deleteSchedule,
+  getUsersSchedules,
 };

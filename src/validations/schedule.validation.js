@@ -17,10 +17,18 @@ const createSchedule = {
   body: Joi.object().keys({
     name: Joi.string(),
     description: Joi.string(),
+    isPrivate: Joi.boolean().required(),
   }),
 };
 
 const getSchedules = {
+  params: Joi.object().keys({
+    limit: Joi.number(),
+    page: Joi.number(),
+  }),
+};
+
+const getUsersSchedules = {
   params: Joi.object().keys({
     limit: Joi.number(),
     page: Joi.number(),
@@ -52,4 +60,5 @@ module.exports = {
   getSchedule,
   updateSchedule,
   deleteSchedule,
+  getUsersSchedules,
 };
