@@ -19,6 +19,7 @@ const getSchedules = catchAsync(async (req, res) => {
     const filter = pick(req.query, ['filer']); //todo add filters
     const options = pick(req.query, ['sortBy', 'limit', 'page']);
     filter.isPrivate = false; //find only not private schdeules
+    filter.owner = { $nin: req.user._id }; //except users items
     const schedules = await scheduleService.getSchedules(filter, options);
     res.status(httpStatus.OK).send(schedules);
   } catch (e) {
